@@ -1,0 +1,17 @@
+{
+  "appId": "com.wryx.bilingual",
+  "appName": "双语对话",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SpeechRecognition": {
+      "language": "zh-CN",
+      "maxResults": 1,
+      "prompt": "",
+      "partialResults": true,
+      "popup": false
+    }
+  }
+}

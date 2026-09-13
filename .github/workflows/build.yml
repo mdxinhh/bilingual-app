@@ -32,12 +32,10 @@ jobs:
         run: |
           MANIFEST=android/app/src/main/AndroidManifest.xml
           python3 - <<'PY'
-          import re
           path = "android/app/src/main/AndroidManifest.xml"
           with open(path) as f:
               content = f.read()
 
-          # 权限
           perms = '''    <uses-permission android:name="android.permission.RECORD_AUDIO" />
               <uses-permission android:name="android.permission.INTERNET" />
               <uses-permission android:name="android.permission.CAMERA" />
@@ -46,7 +44,6 @@ jobs:
           if 'android.permission.RECORD_AUDIO' not in content:
               content = content.replace('<application', perms + '<application', 1)
 
-          # Android 11+ 语音识别服务查询声明
           queries = '''    <queries>
               <intent>
                   <action android:name="android.speech.RecognitionService" />
@@ -64,11 +61,6 @@ jobs:
 
       - name: Capacitor sync
         run: npx cap sync android
-
-      - name: Verify plugin registration
-        run: |
-          echo "=== capacitor.plugins.json ==="
-          cat android/app/src/main/assets/capacitor.plugins.json || echo "NOT FOUND"
 
       - name: Build APK
         run: |
